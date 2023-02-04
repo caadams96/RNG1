@@ -7,7 +7,7 @@ int main() {
     printf("***Random Number Generator Demo***\n");
     if(test()!=0){return 0;};
     long r = 0, r2= 0, r3 = 0, r4 = 0;
-    int c = 101;
+    int c = 1024;
     int size = 10;
     long arr[size];
     time_t iseed;
