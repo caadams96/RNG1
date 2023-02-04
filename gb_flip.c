@@ -22,17 +22,13 @@ long gb_next_rand() { return *gb_fptr>=0 ? /*if*/
 }
 long gb_flip_cycle(){
     register long *ii, *jj;
-
     for(ii= &A[1], jj= &A[32]; jj<=&A[55]; ii++, jj++){
         *ii= mod_diff(*ii, *jj);
     }
-
     for(jj= &A[1]; ii<=&A[55]; ii++, jj++){
         *ii= mod_diff(*ii,*jj);
     }
-
-
-    gb_fptr= &A[54];
+    gb_fptr = &A[54];
     return A[55];
 }
 void gb_init_rand(long seed){
@@ -48,11 +44,11 @@ void gb_init_rand(long seed){
         next= mod_diff(next,seed);
         prev= A[i];
     }
-    (void)gb_flip_cycle();
-    (void)gb_flip_cycle();
-    (void)gb_flip_cycle();
-    (void)gb_flip_cycle();
-    (void)gb_flip_cycle();
+    gb_flip_cycle();
+    gb_flip_cycle();
+    gb_flip_cycle();
+    gb_flip_cycle();
+    gb_flip_cycle();
 }
 
 long gb_unif_rand(long m){
