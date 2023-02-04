@@ -9,8 +9,8 @@ int main() {
     int c = 1024;
     int size = 10;
     long arr[size];
-    time_t iseed;
-    gb_init_rand((long)time(&iseed));
+    time_t iseed = 0;
+    gb_init_rand((long)-(time(&iseed)));
     printf("RANDOM LOOP\n");
     for(int i = 0; i <=size-1; ++i){
         r = gb_unif_rand(c);
@@ -18,10 +18,6 @@ int main() {
         r3 = gb_unif_rand(c);
         printf("%ld\t%ld\t%ld\n",r,r2,r3);
         arr[i] = r;
-    }
-    printf("ARRAY\n");
-    for(int i = 0; i<=size-1;++i){
-        printf("%ld\n",arr[i]);
     }
 }
 
