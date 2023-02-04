@@ -3,5 +3,8 @@
 //
 #ifndef RNG1_GB_FLIP_H
 #define RNG1_GB_FLIP_H
-long generate_random(int seed,int ceiling);
+long gb_next_rand();
+void gb_init_rand(long seed);
+long gb_flip_cycle();
+long gb_unif_rand(long m);
 #endif //RNG1_GB_FLIP_H
