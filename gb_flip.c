@@ -4,16 +4,16 @@
 #include "Headers/gb_flip.h"
 #include <time.h>
 /*macros*/
-#define mod_diff(x,y) (((x) -(y)) & 0x7fffffff)//
+#define mod_diff(x,y) (((x) -(y)) & 0x7fffffff)/*difference modulo 2^31*/
 #define two_to_the_31 ((unsigned long) 0x80000000)//
 /*prototypes*/
 long gb_next_rand();
-long gb_flip_cycle();
+long gb_flip_cycle(); /*compute 55 more pseudo-random numbers*/
 void gb_init_rand(long seed);
 long gb_unif_rand(long m);
 /*variables*/
-static long A[56]= {-1};
-long *gb_fptr = A;
+static long A[56]= {-1}; /*pseudo-random values*/
+long *gb_fptr = A; /*the next A value to be exported*/
 time_t seconds;
 /*functions*/
 long gb_next_rand() { return *gb_fptr>=0 ? /*if*/
@@ -34,16 +34,18 @@ long gb_flip_cycle(){
 void gb_init_rand(long seed){
     register long i;
     register long prev = seed, next= 1;
-    seed= prev= mod_diff(prev,0);
+    seed= prev= mod_diff(prev,0); /* strip off the sign*/
     A[55]= prev;
     for(i = 21; i; i= (i+21) % 55){
         A[i]= next;
         next= mod_diff(prev,next);
-        if(seed & 1)seed = 0x40000000 + (seed>>1);
-        else seed>>= 1;
+        if(seed & 1){
+            seed = 0x40000000 + (seed>>1);
+        }else { seed>>= 1;} /*cyclic shift right 1*/
         next= mod_diff(next,seed);
         prev= A[i];
     }
+    /*warm up generator*/
     gb_flip_cycle();
     gb_flip_cycle();
     gb_flip_cycle();
