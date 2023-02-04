@@ -55,11 +55,11 @@ long gb_unif_rand(long m){
     register unsigned long t= two_to_the_31-(two_to_the_31%m);
     register long r;
     do{
-        r= gb_next_rand();
+        r = gb_next_rand();
     }while(t <= (unsigned long)r);
     return r%m;
 }
-
+/*Added Function*/
 long generate_random(int seed,int ceiling){
     int i,r = 0,t = 0;
     gb_init_rand((long)time(&seconds)-seed);
