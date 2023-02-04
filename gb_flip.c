@@ -14,14 +14,14 @@ long gb_next_rand() { return *gb_fptr>=0 ? /*if*/
                              *gb_fptr--  :  /*do*/
                              gb_flip_cycle(); /*else*/
 }
-/*compute 55 more pseudo-random numbers*/
 long gb_flip_cycle(){
+    /*compute 55 more pseudo-random numbers*/
     register long *ii, *jj;
-    for(ii= &A[1], jj= &A[32]; jj<=&A[55]; ii++, jj++){
-        *ii= mod_diff(*ii, *jj);
+    for(ii= &A[1], jj= &A[32]; jj<=&A[55]; ++ii, ++jj){
+        *ii = mod_diff(*ii, *jj);
     }
-    for(jj= &A[1]; ii<=&A[55]; ii++, jj++){
-        *ii= mod_diff(*ii,*jj);
+    for(jj=&A[1]; ii<=&A[55]; ++ii, ++jj){
+        *ii = mod_diff(*ii,*jj);
     }
     gb_fptr = &A[54];
     return A[55];
@@ -31,7 +31,7 @@ void gb_init_rand(long seed){
     register long prev = seed, next= 1;
     seed= prev= mod_diff(prev,0); /* strip off the sign*/
     A[55]= prev;
-    for(i = 21; i; i= (i+21) % 55){
+    for(i = 21; i; i = (i+21) % 55){
         A[i]= next;
         next= mod_diff(prev,next);
         if(seed & 1){

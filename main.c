@@ -2,7 +2,6 @@
 #include <time.h>
 #include "Headers/gb_flip.h"
 #include "Headers/test_flip.h"
-int rr(int n,int c);
 int main() {
     printf("***Random Number Generator Demo***\n");
     if(test()!=0){return 0;};
@@ -11,9 +10,9 @@ int main() {
     int size = 10;
     long arr[size];
     time_t iseed;
-    gb_init_rand(time(&iseed));
+    gb_init_rand((long)time(&iseed));
     printf("RANDOM LOOP\n");
-    for(int i = 0; i <=10-1; ++i){
+    for(int i = 0; i <=size-1; ++i){
         r = gb_unif_rand(c);
         r2 = gb_unif_rand(c);
         r3 = gb_unif_rand(c);
